@@ -82,7 +82,11 @@ def startUp():
 	("ICON","ICX"),("Ethereum Classic","ETC"),\
 	("Qtum","QTUM"),("Lisk","LSK"),("RaiBlocks","XRB"),\
 	("Populous","PPT"),("OmiseGO","OMG"),\
-	("Tether","USDT"),("Steem","STEEM")]
+	("Tether","USDT"),("Steem","STEEM"),("Zcash","ZEC"),("Stratis","STRAT"),\
+	("Siacoin","SC"),("BitShares","BTS"),("Bytecoin","BCN"),\
+	("Verge","XVG"),("Binance Coin","BNB"),("Ardor","ARDR"),("0x","ZRX"),\
+	("KuCoin Shares","KCS"),("Augur","REP"),("Waves","WAVES"),("Maker","MKR"),\
+	("Walton","WTC")]
 
 #=====================================================================================
 #stuff that was lost in last merge
@@ -96,25 +100,22 @@ def startUp():
 		nstr=''.join([x for x in r.text if x in '0.123456789'])
 		print(nstr)
 		return(nstr)
+	def SQLSTUFF():
+		conn = sqlite3.connect('pricedata.db')
+		c = conn.cursor()
 
-	conn = sqlite3.connect('pricedata.db')
-	c = conn.cursor()
+		cry = [c[1] for c in cryptos]
+		for cr in cry:
+			price=getPrice(cr)
+			try:
+				c.execute("INSERT INTO data(name,price,date) VALUES (?,?,?)",(cr,price,datetime.now()))
+			except:
+				c.execute('''CREATE TABLE data
+		             (name text, price number, date text)''')
 
-	cry = [c[1] for c in cryptos]
-	for cr in cry:
-		price=getPrice(cr)
-		try:
-			c.execute("INSERT INTO data(name,price,date) VALUES (?,?,?)",(cr,price,datetime.now()))
-		except:
-			c.execute('''CREATE TABLE data
-	             (name text, price number, date text)''')
-
-			c.execute("INSERT INTO data(name,price,date) VALUES (?,?,?)",(cr,price,datetime.now()))
-	conn.commit()
-	conn.close()
-
-
-
+				c.execute("INSERT INTO data(name,price,date) VALUES (?,?,?)",(cr,price,datetime.now()))
+		conn.commit()
+		conn.close()
 
 #===============================================================================
 
@@ -146,6 +147,31 @@ def startUp():
 	url = 'https://www.thestreet.com'
 	tags = ['h3','h2','h1']
 	getStuff(url,tags)
+
+	url = 'https://www.coindesk.com/'
+	tags = ['h3','h2','h1',"h4"]
+	getStuff(url,tags)
+
+
+	url = 'https://www.reddit.com/r/CryptoCurrency/new/'
+	tags = ['h3','h2','h1',"h4","h5","h6","a"]
+	getStuff(url,tags)
+
+	url = 'https://www.reddit.com/r/CryptoCurrencies/new/'
+	tags = ['h3','h2','h1',"h4","h5","h6","a"]
+	getStuff(url,tags)
+
+
+	url = 'https://www.reddit.com/r/CryptoMarkets/new/'
+	tags = ['h3','h2','h1',"h4","h5","h6","a"]
+	getStuff(url,tags)
+
+
+	url = 'https://www.reddit.com/r/altcoin/new/'
+	tags = ['h3','h2','h1',"h4","h5","h6","a"]
+	getStuff(url,tags)
+
+
 
 
 	# headers=headers required
@@ -213,7 +239,3 @@ def startUp():
 	for crypto in cryptos:
 		priceTracker.getPrice(crypto[1])
 	'''
-
-
-#temporary, for testing purposes
-startUp();

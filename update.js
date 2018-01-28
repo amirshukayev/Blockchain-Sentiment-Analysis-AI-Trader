@@ -15,11 +15,18 @@ function callbackFunc(response) {
 
 var number = 0;
 
+var upper_limit = 0.05
+var lower_limit = 0.00
+
 
 // RUN WITH flask run --host=0.0.0.0
 function updateit() {
 
+	document.getElementById("click").innerHTML = "Evaluating..."
+
+
 	whattt().then(function(data){
+
 		data = JSON.parse(data);
 		console.log("does this work?");
 
@@ -32,14 +39,20 @@ function updateit() {
 
 		    	//console.log(data[key][0])
 
-		        if (data[key][0] > 0.05){
-		        	okayt += key + " BUY." +"<br>";
+		    	if  (data[key][0] > 0.20){
+		        	okayt += key + "  BUY. " + data[key][0] .toFixed(5) + "<br>";
+		    	}
+		        else if (data[key][0] > upper_limit){
+		        	okayt += key + " Buy. " + data[key][0] .toFixed(5) + "<br>";
 		        }
-		        else if (data[key][0] < 0) {
-		        	okayt += key + " SHORT." + "<br>"; 
+		        else if (data[key][0] < lower_limit) {
+		        	okayt += key + " short. " + data[key][0] .toFixed(5) + "<br>"; 
+		        }
+		        else if (data[key][0] < lower_limit) {
+		        	okayt += key + " SHORT. " + data[key][0] .toFixed(5) + "<br>"; 
 		        }
 		        else {
-		        	okayt += key + " uncertain." + "<br>"; 
+		        	okayt += key + " uncertain. " + data[key][0] .toFixed(5) + "<br>"; 
 
 		        }
 		    }
