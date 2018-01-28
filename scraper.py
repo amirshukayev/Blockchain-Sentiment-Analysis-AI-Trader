@@ -13,6 +13,9 @@ from textblob import TextBlob
 #	-ccn
 #	-cnbc
 #	-newsbtc
+#	-bloomberg
+#	-yahoo news
+#	-
 
 
 # contains all the headlines that we will
@@ -94,9 +97,18 @@ for text in soup.find_all("div", {"class": "slide-summary"}):
 for text in soup.find_all("div", {"class": "entry-title"}):
 	headLines.append(text.getText())
 
+
+# here we are going to be getting a bunch of web data
 url = 'https://www.bloomberg.com/canada'
 getStuff(url,["h1","h2","h3","a"])
 
+url = 'https://ca.finance.yahoo.com/'
+tags = ['h3','h2','h1']
+getStuff(url,tags)
+
+url = ''
+tags = ''
+getStuff(url,tags)
 
 r = requests.get('https://www.cnbc.com/wealth/',headers=headers)
 soup = BeautifulSoup(r.text, 'html.parser')
