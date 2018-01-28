@@ -3,6 +3,7 @@ import requests
 import csv
 from textblob import TextBlob
 import json
+import PriceTracker
 
 # scan a bunch of news websites for cryptocurrency news
 
@@ -170,3 +171,7 @@ for headline in headlinesOfInterest:
 
 with open('dump.json','w') as f:
 	f.write(json.dumps(crypto_sentiments))
+
+priceTracker = PriceTracker.PriceTracker("ETH")
+for crypto in cryptos:
+	priceTracker.getPrice(crypto[1])

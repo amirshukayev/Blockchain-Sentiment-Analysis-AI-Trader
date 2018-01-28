@@ -5,21 +5,58 @@
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/js/bootstrap.min.js" integrity="sha384-a5N7Y/aK3qNeh15eJKGWxsqtnX/wWdSZSKp+81YjTmS15nvnvxKHuzaWwXHDli+4" crossorigin="anonymous"></script>
+    <script>
+      window.onload = function() {
 
+      var dataPoints = [];
+
+      var chart = new CanvasJS.Chart("chartContainer", {
+        animationEnabled: true,
+        theme: "light2",
+        title: {
+          text: "Blockchain Recommendations"
+        },
+        axisY: {
+          title: "Sentiment",
+          titleFontSize: 24
+        },
+        data: [{
+          type: "column",
+          yValueFormatString: "#,### Units",
+          dataPoints: dataPoints
+        }]
+      });
+
+      function addData(data) {
+        for (var i = 0; i < data.length; i++) {
+          dataPoints.push({
+            x: new Date(data[i].date),
+            y: data[i].units
+          });
+        }
+        chart.render();
+
+      }
+
+      $.getJSON("dump.json", addData);
+
+      }
+  </script>
     <meta charset="UTF-8">
     <title>Blockchain Sentimate analysis AI trader blockchain</title>
   </head>
   <body>
-    <h2 align='center'>Blockchain Sentimate analysis AI Trader Blockchain</h1>
+    <h3 align='center', margin=10>Blockchain Sentimate analysis AI Trader Blockchain</h3>
     <!-- All of the Node.js APIs are available in this renderer process. -->
-    We are using Node.js <script>document.write(process.versions.node)</script>,
-    Chromium <script>document.write(process.versions.chrome)</script>,
-    and Electron <script>document.write(process.versions.electron)</script>.
 
     <script>
       // You can also require other files to run in this process
       require('./renderer.js')
     </script>
+
+    <div id="chartContainer" style="height: 370px; width: 100%;"></div>
+    <script src="https://canvasjs.com/assets/script/jquery-1.11.1.min.js"></script>
+    <script src="https://canvasjs.com/assets/script/jquery.canvasjs.min.js"></script>
 
     <script src=="./stuff.js"></script>
     
