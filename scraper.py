@@ -98,9 +98,9 @@ for headline in headlinesOfInterest:
 		crypto_sentiments[headline[1][1]][0] += bl.polarity * bl.subjectivity
 		crypto_sentiments[headline[1][1]][1] += 1
 
-for sentiment in crypto_sentiments:
-	print(sentiment, " = ", crypto_sentiments[sentiment][0] / crypto_sentiments[sentiment][1])
-print(json.dumps(crypto_sentiments))
+#for sentiment in crypto_sentiments:
+#	print(sentiment, " = ", crypto_sentiments[sentiment][0] / crypto_sentiments[sentiment][1])
+#print(json.dumps(crypto_sentiments))
 
 with open('dump.json','w') as f:
 	f.write(json.dumps(crypto_sentiments))
