@@ -15,24 +15,31 @@ function callbackFunc(response) {
 
 var number = 0;
 
+
+// RUN WITH flask run --host=0.0.0.0
 function updateit() {
 
-	setTimeout (
-		function() {
-			$.ajax({
-			    type: "POST",
-			    url: "scraper.py",
-			    data: { param: " "}
-			    }).done(function( o ) {
-			        alert("OK");
-			});
+	setTimeout(function(){
+		$.ajax({
+	           type: "GET",
+	           dataType: "jsonp",
+	           url: "http://0.0.0.0:5000/getstuff",
+	           success: function (data, textStatus, XMLHttpRequest) {
+	               alert(data);
+	               alert("success!");
+	           },
+	           error: function(XMLHttpRequest, textStatus, errorThrown) {
+	               alert("fail");
+	           }
+	     });
 		}
-	, 10000);
+	,30000);
 
 
 	var element = document.getElementById("click");
 	element.innerHTML = "the number is: " + number
 	number++;
+
 }
 
 postData('data to process');

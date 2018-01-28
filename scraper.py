@@ -5,7 +5,7 @@ from textblob import TextBlob
 import json
 import PriceTracker
 
-def start():
+def startUp():
 	# scan a bunch of news websites for cryptocurrency news
 
 	# find mentions of some cryptocurrencies (top 25 CCs right now)
@@ -172,6 +172,7 @@ def start():
 
 	with open('dump.json','w') as f:
 		f.write(json.dumps(crypto_sentiments))
+		return json.dumps(crypto_sentiments)
 
 	'''
 	priceTracker = PriceTracker.PriceTracker("ETH")
