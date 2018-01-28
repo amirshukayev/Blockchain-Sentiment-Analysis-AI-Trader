@@ -3,7 +3,7 @@ import requests
 import csv
 from textblob import TextBlob
 import json
-import PriceTracker
+#import PriceTracker
 
 def startUp():
 	# scan a bunch of news websites for cryptocurrency news
@@ -31,7 +31,7 @@ def startUp():
 	headers = {'User-Agent':'Mozilla/5.0'}
 
 
-	# scrape a website. 
+	# scrape a website.
 	# tags: list of <html> tags to scrape info from
 	# speeds things up by not scraping evreyting on the website
 	# url is the url u want to scrape from
@@ -83,6 +83,40 @@ def startUp():
 	("Qtum","QTUM"),("Lisk","LSK"),("RaiBlocks","XRB"),\
 	("Populous","PPT"),("OmiseGO","OMG"),\
 	("Tether","USDT"),("Steem","STEEM")]
+
+#=====================================================================================
+#stuff that was lost in last merge
+	import sqlite3
+	from datetime import datetime
+
+	def getPrice(coin):
+		xd = "https://min-api.cryptocompare.com/data/price?fsym=%s&tsyms=USD" % (coin)
+		r = requests.get(xd)
+		print(r.text)
+		nstr=''.join([x for x in r.text if x in '0.123456789'])
+		print(nstr)
+		return(nstr)
+
+	conn = sqlite3.connect('pricedata.db')
+	c = conn.cursor()
+
+	cry = [c[1] for c in cryptos]
+	for cr in cry:
+		price=getPrice(cr)
+		try:
+			c.execute("INSERT INTO data(name,price,date) VALUES (?,?,?)",(cr,price,datetime.now()))
+		except:
+			c.execute('''CREATE TABLE data
+	             (name text, price number, date text)''')
+
+			c.execute("INSERT INTO data(name,price,date) VALUES (?,?,?)",(cr,price,datetime.now()))
+	conn.commit()
+	conn.close()
+
+
+
+
+#===============================================================================
 
 	# website contains sentiments in <h3> tags
 	for text in soup.find_all('h3'):
@@ -179,3 +213,7 @@ def startUp():
 	for crypto in cryptos:
 		priceTracker.getPrice(crypto[1])
 	'''
+
+
+#temporary, for testing purposes
+startUp();
