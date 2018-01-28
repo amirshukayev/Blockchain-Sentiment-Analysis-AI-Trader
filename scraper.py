@@ -14,8 +14,23 @@ from textblob import TextBlob
 #	-cnbc
 #	-newsbtc
 
+
+# contains all the headlines that we will
+# analyze the sentiments of
+headLines = []
+
 headlinesOfInterest = set()
+
+# some websites think you're ddossing unless you pose as a browser
 headers = {'User-Agent':'Mozilla/5.0'}
+
+def getStuff (url, tags):
+	r = requests.get(url,headers=headers)
+	soup = BeautifulSoup(r.text, 'html.parser')
+
+	for tag in tags:
+		for text in soup.find_all(tag):
+			headLines.append(text.getText())
 
 
 sentiments = []
@@ -43,12 +58,17 @@ with open('keywords', newline='') as csvfile:
 r = requests.get('https://cryptoanswers.net',headers=headers)
 soup = BeautifulSoup(r.text, 'html.parser')
 
-# contains all the headlines that we will
-# analyze the sentiments of
-headLines = []
 
 # top 25 crypto list
-cryptos = [("Bitcoin","BTC"), ("Ethereum","ETH"), ("Ripple","XRP"), ("Bitcoin Cash","BCH"), ("Cardano","ADA"), ("Stellar","XML"),("Litecoin","LTC"),("NEM","XEM"),("NEO","NEO"),("EOS","EOS"),("IOTA","MIOTA"),("Dash","DASH"),("Monero","XMR"),("TRON","TRX"),("VeChain","VEN"),("Bitcoin Gold","BTG"),("ICON","ICX"),("Ethereum Classic","ETC"),("Qtum","QTUM"),("Lisk","LSK"),("RaiBlocks","XRB"),("Populous","PPT"),("OmiseGO","OMG"),("Tether","USDT"),("Steem","STEEM")]
+cryptos = [("Bitcoin","BTC"), ("Ethereum","ETH"),\
+("Ripple","XRP"), ("Bitcoin Cash","BCH"), ("Cardano","ADA"),\
+("Stellar","XML"),("Litecoin","LTC"),("NEM","XEM"),("NEO","NEO"),\
+("EOS","EOS"),("IOTA","MIOTA"),("Dash","DASH"),("Monero","XMR"),("TRON","TRX"),\
+("VeChain","VEN"),("Bitcoin Gold","BTG"),\
+("ICON","ICX"),("Ethereum Classic","ETC"),\
+("Qtum","QTUM"),("Lisk","LSK"),("RaiBlocks","XRB"),\
+("Populous","PPT"),("OmiseGO","OMG"),\
+("Tether","USDT"),("Steem","STEEM")]
 
 # website contains sentiments in <h3> tags
 for text in soup.find_all('h3'):
@@ -66,7 +86,8 @@ for text in soup.find_all("div", {"class": "slide-summary"}):
 for text in soup.find_all("div", {"class": "entry-title"}):
 	headLines.append(text.getText())
 
-
+url = 'https://www.bloomberg.com/canada'
+getStuff(url,["h1","h2","h3","a"])
 
 
 r = requests.get('https://www.cnbc.com/wealth/',headers=headers)
@@ -74,7 +95,6 @@ soup = BeautifulSoup(r.text, 'html.parser')
 
 for text in soup.find_all("p", {"class":"desc"}):
 	headLines.append(text.getText())
-
 
 
 r = requests.get('https://www.newsbtc.com/',headers=headers)
