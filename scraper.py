@@ -145,7 +145,7 @@ for headline in headlinesOfInterest:
 	if key not in crypto_sentiments:
 		crypto_sentiments[key] = [bl.polarity * bl.subjectivity,1]
 	else:
-		crypto_sentiments[headline[1][1]][0] += bl.polarity * bl.subjectiC
+		crypto_sentiments[headline[1][1]][0] += bl.polarity * bl.subjectivity
 
 		crypto_sentiments[headline[1][1]][1] += 1
 
