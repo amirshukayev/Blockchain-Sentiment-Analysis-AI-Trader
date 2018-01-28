@@ -23,14 +23,31 @@ function updateit() {
 		data = JSON.parse(data);
 		console.log("does this work?");
 
+
+		var okayt = "<br>"
+
 		for (var key in data) {
+
 		    if (data.hasOwnProperty(key)) {
-		        if (data[key] > 0.05){
-		        	
+
+		    	//console.log(data[key][0])
+
+		        if (data[key][0] > 0.05){
+		        	okayt += key + " BUY." +"<br>";
+		        }
+		        else if (data[key][0] < 0) {
+		        	okayt += key + " SHORT." + "<br>"; 
+		        }
+		        else {
+		        	okayt += key + " uncertain." + "<br>"; 
+
 		        }
 		    }
 		}
-		
+
+		console.log(okayt)
+		document.getElementById("click").innerHTML = okayt
+
 		/*
 		var element = document.getElementById("click");
 		element.innerHTML = "the number is: " + number
