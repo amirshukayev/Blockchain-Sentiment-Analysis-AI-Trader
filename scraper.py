@@ -3,6 +3,16 @@ import requests
 import csv
 from textblob import TextBlob
 
+# scan a bunch of news websites for cryptocurrency news
+
+# find mentions of some cryptocurrencies (top 25 CCs right now)
+# analyzes sentiments of the mentions
+# algorithm determines the value and potentioal of the coin
+# currently scrapes the websites:
+#	-cryptoanswers
+#	-ccn
+#	-cnbc
+#	-newsbtc
 
 headlinesOfInterest = set()
 headers = {'User-Agent':'Mozilla/5.0'}
