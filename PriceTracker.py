@@ -9,13 +9,12 @@ class PriceTracker:
 		self.cursor = connection.cursor()
 		sql_command = """
 		CREATE TABLE pricing {
-		
+
 		}"""
+import sqlite3
 
 	def getPrice(self,coin):
 		xd = "https://min-api.cryptocompare.com/data/price?fsym=%s&tsyms=USD" % (coin)
 		r = requests.get(xd)
 		print(r.text.Response)
 		print(r.text)
-
-
