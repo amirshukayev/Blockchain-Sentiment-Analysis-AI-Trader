@@ -111,9 +111,13 @@ url = 'https://www.thestreet.com'
 tags = ['h3','h2','h1']
 getStuff(url,tags)
 
+
+# headers=headers required
+# this will get around ddos protection
 r = requests.get('https://www.cnbc.com/wealth/',headers=headers)
 soup = BeautifulSoup(r.text, 'html.parser')
 
+# paragraphs with the description tag contain useful information
 for text in soup.find_all("p", {"class":"desc"}):
 	headLines.append(text.getText())
 
@@ -121,25 +125,36 @@ for text in soup.find_all("p", {"class":"desc"}):
 r = requests.get('https://www.newsbtc.com/',headers=headers)
 soup = BeautifulSoup(r.text, 'html.parser')
 
+# paragraph sections contain useful information
 for text in soup.find_all("p"):
 	headLines.append(text.getText())
 
+# <h3> tags contain useful information
 for text in soup.find_all("h3"):
 	headLines.append(text.getText())
 
-
+# go throught headlines and find mentions of the cryptos
 for headline in headLines:
+	# find all the mentions of the 25 cryptocurrencies that we chose
+	# to track
 	for crypto in cryptos:
+		# if it contains what we want
 		if headline.find(crypto[0]) != -1:
+			# add that to analyze later
 			headlinesOfInterest.add((headline,crypto))
 
 final_sentiments = []
 
+# dict maps bitcoins to its sentiments
 crypto_sentiments = {}
 
+# going through the information
 for headline in headlinesOfInterest:
+
+	# blob helps with the NLP
 	bl = TextBlob(headline[0])
 
+	# getting the crypto name
 	key = headline[1][1]
 
 	if key not in crypto_sentiments:
