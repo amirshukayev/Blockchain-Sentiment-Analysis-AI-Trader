@@ -1,3 +1,13 @@
 # Blockchain-Sentiment-Analysis-AI-Trader
-sudo pip3 install textblob
-sudo pip3 install bs4
+
+Sentiment analysis based Crypto Currency trading assistant, goes through news websites and collects crypto data.
+Analyzes sentiment and smartly assesses coin quality
+
+# Supported Websites:
+
+-CryptoAnswers
+-CCN
+-CNBC
+-NewsBTC
+-Bloomberg
+-Yahoo News
