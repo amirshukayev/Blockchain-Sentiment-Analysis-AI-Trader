@@ -24,8 +24,16 @@ headlinesOfInterest = set()
 # some websites think you're ddossing unless you pose as a browser
 headers = {'User-Agent':'Mozilla/5.0'}
 
-def getStuff (url, tags):
-	r = requests.get(url,headers=headers)
+
+# scrape a website. 
+# tags: list of <html> tags to scrape info from
+# speeds things up by not scraping evreyting on the website
+# url is the url u want to scrape from
+def getStuff (url, tags, pretendToBeMozilla=True):
+	if pretendToBeMozilla:
+		r = requests.get(url,headers=headers)
+	else:
+		r = requests.get(url,headers=headers)
 	soup = BeautifulSoup(r.text, 'html.parser')
 
 	for tag in tags:
