@@ -107,8 +107,8 @@ url = 'https://ca.finance.yahoo.com/'
 tags = ['h3','h2','h1']
 getStuff(url,tags)
 
-url = ''
-tags = ''
+url = 'https://www.thestreet.com'
+tags = ['h3','h2','h1']
 getStuff(url,tags)
 
 r = requests.get('https://www.cnbc.com/wealth/',headers=headers)
