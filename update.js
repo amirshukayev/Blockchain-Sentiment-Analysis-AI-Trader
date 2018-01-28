@@ -13,8 +13,26 @@ function callbackFunc(response) {
     console.log(response);
 }
 
+var number = 0;
+
 function updateit() {
-	console.log("waddup hoe");
+
+	setTimeout (
+		function() {
+			$.ajax({
+			    type: "POST",
+			    url: "scraper.py",
+			    data: { param: " "}
+			    }).done(function( o ) {
+			        alert("OK");
+			});
+		}
+	, 10000);
+
+
+	var element = document.getElementById("click");
+	element.innerHTML = "the number is: " + number
+	number++;
 }
 
 postData('data to process');
