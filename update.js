@@ -22,7 +22,6 @@ function updateit() {
 	setTimeout(function(){
 		$.ajax({
 	           type: "GET",
-	           dataType: "jsonp",
 	           url: "http://0.0.0.0:5000/getstuff",
 	           success: function (data, textStatus, XMLHttpRequest) {
 	               alert(data);
