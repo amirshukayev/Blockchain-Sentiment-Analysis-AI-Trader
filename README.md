@@ -11,8 +11,9 @@ Analyzes sentiment and smartly assesses coin quality
 -NewsBTC
 -Bloomberg
 -Yahoo News
+-way more
 
-# installation  (only tested on Ubuntu)
+# How to use  (only tested on Ubuntu)
 
 download and open directory in terminal
 ```
