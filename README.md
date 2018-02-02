@@ -5,13 +5,13 @@ Analyzes sentiment and smartly assesses coin quality
 
 # Supported Websites:
 
--CryptoAnswers
--CCN
--CNBC
--NewsBTC
--Bloomberg
--Yahoo News
--way more
+*CryptoAnswers
+*CCN
+*CNBC
+*NewsBTC
+*Bloomberg
+*Yahoo News
+*way more
 
 # How to use  (only tested on Ubuntu)
 
